@@ -1,0 +1,9 @@
+sudo apt update
+sudo apt install docker-compose
+docker-compose --version
+docker-compose up
+docker-compose stop
+
+
+# admin passwd: zesq-ctb2-nn28
+# sudo docker-compose exec odoo sh
