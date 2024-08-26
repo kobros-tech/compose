@@ -1,8 +1,16 @@
-sudo apt update
-sudo apt install docker-compose
+sudo apt update && sudo apt upgrade -y
+sudo apt install docker-compose -y
 docker-compose --version
+
+git clone https://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@github.com/kobros-tech/compose.git
+
+cd compose
+
 docker-compose up
 docker-compose stop
+
+openssl rand -base64 30
+nano .env
 
 
 # admin passwd: zesq-ctb2-nn28
