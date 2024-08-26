@@ -10,8 +10,24 @@ docker-compose up
 docker-compose stop
 
 openssl rand -base64 30
-nano .env
+nano odoo_pg_pass
+docker secret create postgresql_password odoo_pg_pass
+sudo docker secret inspect postgresql_password
 
+[
+    {
+        "ID": "qkyae46vw298fl5oi6oce01xv",
+        "Version": {
+            "Index": 11
+        },
+        "CreatedAt": "2024-08-26T18:23:42.578268211Z",
+        "UpdatedAt": "2024-08-26T18:23:42.578268211Z",
+        "Spec": {
+            "Name": "postgresql_password",
+            "Labels": {}
+        }
+    }
+]
 
-# admin passwd: zesq-ctb2-nn28
+# admin passwd: 8f42-ivq7-audv
 # sudo docker-compose exec odoo sh
