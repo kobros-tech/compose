@@ -29,5 +29,5 @@ sudo docker secret inspect postgresql_password
     }
 ]
 
-# admin passwd: 8f42-ivq7-audv
+# admin passwd: admin
 # sudo docker-compose exec odoo sh
