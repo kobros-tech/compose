@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Odoo Compose Project
+
+# Controls when the workflow will run
+# on:
+#   push:
+#     branches:
+#       - main # Adjust to your target branch
+
+# Controls when the workflow will run
+on: [push]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build-and-push:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Pull and Retag Images
+        run: |
+          docker pull odoo:17.0
+          docker pull postgres:15
+          docker tag odoo:17.0 ${{ secrets.DOCKER_USER }}/odoo:17.0
+          docker tag postgres:15 ${{ secrets.DOCKER_USER }}/postgres:15
+
+      # Set up Docker Compose
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      # Build and push Docker images using docker-compose
+      - name: Build and Push Docker Images
+        run: |
+          docker-compose build
+          docker push ${{ secrets.DOCKER_USER }}/odoo:17.0
+          docker push ${{ secrets.DOCKER_USER }}/postgres:15

@@ -1,7 +1,7 @@
-version: '3'
+version: "3"
 services:
   odoo:
-    image: odoo:17.0
+    image: kobros-tech/odoo:17.0
     env_file: .env
     depends_on:
       - postgres
@@ -12,7 +12,7 @@ services:
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
   postgres:
-    image: postgres:15
+    image: kobros-tech/postgres:15
     env_file: .env
     volumes:
       - db:/var/lib/postgresql/data/pgdata
